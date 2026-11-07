@@ -1,0 +1,18 @@
+# Version and security updates for CI pins and GitHub Actions.
+#
+# Dependabot runs on GitHub, not locally. The schedule lives here; the resulting
+# pull requests go through the same workflow as every push.
+#
+# Detection note: pip picks up every .txt in the repository root whose name
+# contains "requirements". requirements-ci.txt matches (source: dependabot-core,
+# python/lib/dependabot/python/shared_file_fetcher.rb).
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

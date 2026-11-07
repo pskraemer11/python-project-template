@@ -1,0 +1,16 @@
+# Runs the permission-guard test suite from its own repository.
+#
+# The called workflow checks out pskraemer11/permission-guard explicitly, so
+# this repository needs no vendored copy. The plugin repository is public.
+name: permission-guard
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    uses: pskraemer11/permission-guard/.github/workflows/guard.yml@main

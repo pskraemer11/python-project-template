@@ -1,0 +1,51 @@
+# Tool configuration: ruff, pytest, pyright.
+#
+# The rules match the shared workspace baseline: Bugbear, isort and pyupgrade
+# on top of the ruff defaults. Keep the version pinned so every caller checks
+# with the same rule set.
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+cache-dir = ".ruff_cache"
+
+# One version for every caller: python -m ruff, uvx ruff, CI.
+required-version = "==0.17.4"
+
+extend-exclude = [
+    "staging",
+    "tests/artifacts",
+]
+
+[tool.ruff.lint]
+select = [
+    "F",   # Pyflakes
+    "E4",  # import order
+    "E7",  # syntax
+    "E9",  # runtime errors
+    "B",   # flake8-bugbear
+    "I",   # isort
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # long lines in documentation strings and prompts are intentional
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+norecursedirs = ["artifacts", "__pycache__", ".git", "staging"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+pythonPlatform = "All"
+typeCheckingMode = "basic"
+extraPaths = ["src"]
+include = [
+    "src",
+    "tests",
+]
+exclude = [
+    "**/__pycache__",
+    "tests/artifacts",
+]

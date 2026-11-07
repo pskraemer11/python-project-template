@@ -1,0 +1,9 @@
+# Keep the repository text in LF so Windows and Linux checkouts match.
+* text=auto eol=lf
+
+# Git hooks have no extension; CRLF makes them unusable in bash.
+.githooks/* text eol=lf
+*.sh text eol=lf
+
+# PowerShell scripts run on Windows; CRLF keeps them editable in older editors.
+*.ps1 text eol=crlf

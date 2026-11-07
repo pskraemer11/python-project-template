@@ -1,0 +1,56 @@
+# Python suite, lint and type check.
+#
+# Ruff, pytest and pyright are pinned in requirements-ci.txt; ruff additionally
+# enforces its project version through `required-version` in pyproject.toml.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: utf-8
+
+jobs:
+  python:
+    name: Lint und Tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      # ubuntu-24.04 instead of ubuntu-latest: "latest" moves to 26.04 in
+      # November 2026, and an unnoticed runner change must not turn the suite red.
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: python -m pip install -r requirements-ci.txt
+
+      - name: Lint
+        run: python -m ruff check .
+
+      - name: Formatting
+        run: python -m ruff format --check .
+
+      - name: Type check
+        run: python -m pyright
+
+      # Audits the resolved dependency tree for known CVEs. Exit 1 means a
+      # finding; --strict also fails when the audit cannot collect.
+      - name: Security audit
+        run: python -m pip_audit -r requirements-ci.txt --strict --progress-spinner off
+
+      # The suite is pure Python; no runner-specific setup is needed.
+      - name: Tests
+        run: python -m pytest -q
