@@ -14,3 +14,13 @@ permissions:
 jobs:
   guard:
     uses: pskraemer11/permission-guard/.github/workflows/guard.yml@main
+
+  # Stable check name for the repository ruleset; runs only if the reusable
+  # guard workflow succeeded.
+  permission-guard:
+    name: permission-guard
+    needs: guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guard result
+        run: echo "permission-guard passed."

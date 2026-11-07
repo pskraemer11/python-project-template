@@ -21,7 +21,7 @@ env:
 
 jobs:
   bereichspruefung:
-    name: Push-/PR-Bereich
+    name: hook-regeln
     runs-on: ubuntu-latest
     steps:
       - name: Auschecken (volle Historie)

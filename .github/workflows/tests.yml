@@ -54,3 +54,13 @@ jobs:
       # The suite is pure Python; no runner-specific setup is needed.
       - name: Tests
         run: python -m pytest -q
+
+  # Stable check name for the repository ruleset. The matrix jobs above keep
+  # their OS-specific names; this job only aggregates their result.
+  tests:
+    name: tests
+    needs: python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Matrix result
+        run: echo "All Python matrix jobs passed."
