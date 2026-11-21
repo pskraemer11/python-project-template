@@ -1,5 +1,5 @@
 # Reproducible tools for local checks and GitHub CI.
-ruff==0.17.4
+ruff==0.17.5
 pytest==9.2.0
 pyright==1.1.414
 # Audit of the resolved test tooling, runs in CI only (needs network).
