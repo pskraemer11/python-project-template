@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   guard:
-    uses: pskraemer11/permission-guard/.github/workflows/guard.yml@main
+    uses: pskraemer11/permission-guard/.github/workflows/guard.yml@eeecc973d6d6d11ea12578efcad6eb330e5f50ca # v0.1.0
 
   # Stable check name for the repository ruleset; runs only if the reusable
   # guard workflow succeeded.
